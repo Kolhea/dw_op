@@ -679,10 +679,7 @@ def recommend():
             }
             data['person_rst']=person_rst
 
-            your_email = stripped(request.form, 'your_email')
-
-            rec = stripped(request.form, 'recommendation')
-            rec_sanitized = rec.translate(REC_CSV_TRANS)
+            rec_sanitized = recommendation.translate(REC_CSV_TRANS)
 
             body_vars = {
                 'your_forename': your_forename,
@@ -692,7 +689,7 @@ def recommend():
                 'persona': persona,
                 'time_served': time_served,
                 'award_names': award_names,
-                'recommendation': rec,
+                'recommendation': recommendation,
                 'recommendation_sanitized': rec_sanitized,
                 'events': events,
                 'scribe': scribe or '',
