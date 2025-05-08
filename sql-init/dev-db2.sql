@@ -2032,20 +2032,21 @@ INSERT INTO `people` (`id`, `surname`, `forename`, `region_id`,`blazon`,`emblazo
 -- Dumping data for table `personae`
 --
 
-INSERT INTO `personae` VALUES (1545,'John The Green',1557,1,'');
-INSERT INTO `personae` VALUES (2418,'íone',2489,1,'ione ionne');
-INSERT INTO `personae` VALUES (3623,'Thomas',3226,1,'');
-INSERT INTO `personae` VALUES (3624,'Sara of Nordmark',3227,1,'');
-INSERT INTO `personae` VALUES (3625,'Yda',3228,1,'');
-INSERT INTO `personae` VALUES (3626,'Anna S. Þorvaldsdóttir',3229,1,'Anna S. Thorvaldsdóttir  Anna S. Thorvaldsdottir');
-INSERT INTO `personae` VALUES (3627,'Tiffany',3230,1,'');
-INSERT INTO `personae` VALUES (3628,'Seamus',3231,1,'');
-INSERT INTO `personae` VALUES (3629,'Sven The Red',3232,1,'');
-INSERT INTO `personae` VALUES (3630,'Hildegard',3233,1,'');
-INSERT INTO `personae` VALUES (3631,'James',3234,1,'');
-INSERT INTO `personae` VALUES (3632,'Eduard',3235,1,'Edward');
-INSERT INTO `personae` VALUES (3633,'Einli',3236,1,'');
-INSERT INTO `personae` VALUES (3634,'Florence',3237,1,'');
+INSERT INTO `personae` VALUES (1545,'John The Green','He/Him',1,1557,1,'');
+INSERT INTO `personae` VALUES (2418,'íone','They/Them',1,2489,1,'ione ionne');
+INSERT INTO `personae` VALUES (3623,'Thomas','',0,3226,1,'');
+INSERT INTO `personae` VALUES (3624,'Sara of Nordmark','She/Her',1,3227,1,'');
+INSERT INTO `personae` VALUES (3625,'Yda','She/Her',1,3228,1,'');
+INSERT INTO `personae` VALUES (3626,'Anna S. Þorvaldsdóttir','She/Her',1,3229,1,'Anna S. Thorvaldsdóttir  Anna S. Thorvaldsdottir');
+INSERT INTO `personae` VALUES (3627,'Tiffany','She/Her',0,3230,1,'');
+INSERT INTO `personae` VALUES (3628,'Seamus','He/Him',1,3231,1,'');
+INSERT INTO `personae` VALUES (3629,'Sven The Red','He/Him',1,3232,0,'');
+INSERT INTO `personae` VALUES (3630,'Hildegard','She/Her',1,3233,1,'');
+INSERT INTO `personae` VALUES (3631,'James','He/Him',1,3234,0,'');
+INSERT INTO `personae` VALUES (3632,'Eduard','He/Him',1,3235,1,'Edward');
+INSERT INTO `personae` VALUES (3633,'Einli','She/Her',1,3236,1,'');
+INSERT INTO `personae` VALUES (3634,'Florence','She/Her',1,3237,1,'');
+INSERT INTO `personae` VALUES (3635,'Jeanne','She/Her',1,3232,1,'');
 
 -- --------------------------------------------------------
 
