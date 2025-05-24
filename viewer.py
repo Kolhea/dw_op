@@ -677,7 +677,7 @@ def recommend():
                 'scribe_email': scribe_email,
                 'awards_form':awards
             }
-            data['person_rst']=person_rst
+            #data['person_rst']=person_rst
 
             rec_sanitized = recommendation.translate(REC_CSV_TRANS)
 
