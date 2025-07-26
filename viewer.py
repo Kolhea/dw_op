@@ -216,7 +216,7 @@ def awards():
             flash('Please choose at least one award type.', 'info')
             results = list()
         else:
-            results = do_query(c, 'SELECT personae.name, award_types.name, awards.date, crowns.name, events.name FROM awards JOIN personae ON awards.persona_id = personae.id JOIN award_types ON awards.type_id = award_types.id JOIN events ON awards.event_id = events.id LEFT OUTER JOIN crowns ON awards.crown_id = crowns.id WHERE award_types.id IN ({}) ORDER BY awards.date, personae.name, award_types.name'.format(','.join(['%s'] * len(a_ids))), *a_ids)
+            results = do_query(c, 'SELECT cur.name, award_types.name, awards.date, crowns.name, events.name FROM awards JOIN personae ON awards.persona_id = personae.id JOIN award_types ON awards.type_id = award_types.id JOIN events ON awards.event_id = events.id LEFT OUTER JOIN crowns ON awards.crown_id = crowns.id JOIN personae AS cur ON personae.person_id = cur.person_id WHERE award_types.id IN ({}) AND cur.official = 1 ORDER BY awards.date, personae.name, award_types.name'.format(','.join(['%s'] * len(a_ids))), *a_ids)
 
     return render_template(
         'awards.html',
@@ -256,7 +256,7 @@ def award():
     results = None
 
     c = get_db().cursor()
-    results = do_query(c, 'SELECT personae.name, award_types.name, awards.date, crowns.name, events.name FROM personae JOIN awards ON personae.id = awards.persona_id JOIN award_types ON awards.type_id = award_types.id JOIN events ON awards.event_id = events.id LEFT OUTER JOIN crowns ON awards.crown_id = crowns.id WHERE award_types.name LIKE %s ORDER BY awards.date, personae.name, award_types.name', '%{}%'.format(award))
+    results = do_query(c, 'SELECT cur.name, award_types.name, awards.date, crowns.name, events.name FROM personae JOIN awards ON personae.id = awards.persona_id JOIN award_types ON awards.type_id = award_types.id JOIN events ON awards.event_id = events.id LEFT OUTER JOIN crowns ON awards.crown_id = crowns.id JOIN personae AS cur ON personae.person_id = cur.person_id WHERE award_types.name LIKE %s AND cur.official = 1 ORDER BY awards.date, personae.name, award_types.name', '%{}%'.format(award))
 
     return render_template(
         'award.html',
@@ -677,30 +677,27 @@ def recommend():
                 'scribe_email': scribe_email,
                 'awards_form':awards
             }
-            data['person_rst']=person_rst
+            #data['person_rst']=person_rst
 
-            your_email = stripped(request.form, 'your_email')
-
-            rec = stripped(request.form, 'recommendation')
-            rec_sanitized = rec.translate(REC_CSV_TRANS)
+            rec_sanitized = recommendation.translate(REC_CSV_TRANS)
 
             body_vars = {
-                'your_forename': stripped(request.form, 'your_forename'),
-                'your_surname': stripped(request.form, 'your_surname'),
-                'your_persona': stripped(request.form, 'your_persona'),
+                'your_forename': your_forename,
+                'your_surname': your_surname,
+                'your_persona': your_persona,
                 'your_email': your_email,
-                'persona': stripped(request.form, 'persona'),
-                'time_served': stripped(request.form, 'time_served'),
+                'persona': persona,
+                'time_served': time_served,
                 'award_names': award_names,
-                'recommendation': rec,
+                'recommendation': recommendation,
                 'recommendation_sanitized': rec_sanitized,
-                'events': stripped(request.form, 'events'),
-                'scribe': stripped(request.form, 'scribe') or '',
-                'scribe_email': stripped(request.form, 'scribe_email') or '',
+                'events': events,
+                'scribe': scribe or '',
+                'scribe_email': scribe_email or '',
                 'date': datetime.date.today(),
                 'gender': gender,
                 'branch': branch,
-                'added_to_sheet':0
+                'added_to_sheet': 0
             }
            
             crowns = request.form.getlist('crowns[]', type=int)
